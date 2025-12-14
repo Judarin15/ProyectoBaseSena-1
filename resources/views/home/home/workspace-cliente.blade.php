@@ -10,108 +10,13 @@
 
 @push('scripts')
 <script src="{{ asset('js/home/workspacecliente.js') }}"></script>
+<script src="{{ asset('js/home/inicio.js') }}"></script>
 @endpush
 
 @section('content')
 
-<header class="header">
-        <div class="header-container">
-            <div class="header-content">
-                <!-- Logo -->
-                <div class="logo">
-                    <span class="logo-text">Workspace Cliente</span>
-                </div>
-
-                <!-- Navigation Desktop -->
-                <nav class="nav-desktop">
-                    <button class="nav-btn active" data-tab="my-jobs">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                        Mis Trabajos
-                    </button>
-                    <button class="nav-btn" data-tab="proposals">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="8.5" cy="7" r="4"></circle>
-                            <polyline points="17 11 19 13 23 9"></polyline>
-                        </svg>
-                        Solicitudes
-                    </button>
-                    <button class="nav-btn" data-tab="freelancers">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        Buscar Freelancers
-                    </button>
-                    <button class="nav-btn" data-tab="messages">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        Mensajes
-                    </button>
-                </nav>
-
-                <!-- Right Side -->
-                <div class="header-right">
-                    <button class="notification-btn" id="notificationBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                        </svg>
-                        <span class="notification-badge" id="notificationBadge">3</span>
-                    </button>
-                    <div class="profile-avatar">TC</div>
-                </div>
-            </div>
-
-            <!-- Navigation Mobile -->
-            <nav class="nav-mobile">
-                <button class="nav-btn-mobile active" data-tab="my-jobs">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                    </svg>
-                    Trabajos
-                </button>
-                <button class="nav-btn-mobile" data-tab="proposals">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="8.5" cy="7" r="4"></circle>
-                        <polyline points="17 11 19 13 23 9"></polyline>
-                    </svg>
-                    Solicitudes
-                </button>
-                <button class="nav-btn-mobile" data-tab="freelancers">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    Freelancers
-                </button>
-                <button class="nav-btn-mobile" data-tab="messages">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                    Mensajes
-                </button>
-            </nav>
-        </div>
-
-        <!-- Notifications Dropdown -->
-        <div class="notifications-dropdown" id="notificationsDropdown" style="display: none;">
-            <div class="notifications-header">
-                <h3>Notificaciones</h3>
-            </div>
-            <div class="notifications-content" id="notificationsContent"></div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
+    <!-- Contenido principal (usa el <main> del layout) -->
+    <div class="container">
             <!-- My Jobs Tab -->
             <div id="myJobsTab" class="tab-content active">
                 <div class="section-header-with-action">
@@ -119,13 +24,6 @@
                         <h1 class="section-title">Mis Trabajos</h1>
                         <p class="section-subtitle">Gestiona tus proyectos publicados y en progreso</p>
                     </div>
-                    <button class="btn-primary" onclick="openCreateJobModal()">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                        Publicar Trabajo
-                    </button>
                 </div>
 
                 <div class="tabs-container">
@@ -137,14 +35,47 @@
 
                     <div id="publishedJobsContent" class="subtab-content active">
                         <div class="jobs-grid" id="publishedJobsGrid"></div>
+
+                        <!-- Botón de publicar debajo de las tarjetas publicadas -->
+                        <div class="after-jobs-actions" style="margin-top:1.25rem;">
+                            <button class="btn-primary" onclick="openCreateJobModal()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Publicar Trabajo
+                            </button>
+                        </div>
                     </div>
 
                     <div id="inProgressJobsContent" class="subtab-content">
                         <div class="jobs-grid" id="inProgressJobsGrid"></div>
+
+                        <!-- Botón de publicar también para En Progreso -->
+                        <div class="after-jobs-actions" style="margin-top:1.25rem;">
+                            <button class="btn-primary" onclick="openCreateJobModal()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Publicar Trabajo
+                            </button>
+                        </div>
                     </div>
 
                     <div id="completedJobsContent" class="subtab-content">
                         <div class="jobs-grid" id="completedJobsGrid"></div>
+
+                        <!-- Botón de publicar también para Completados -->
+                        <div class="after-jobs-actions" style="margin-top:1.25rem;">
+                            <button class="btn-primary" onclick="openCreateJobModal()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Publicar Trabajo
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,7 +128,6 @@
                 <div class="messages-grid" id="messagesGrid"></div>
             </div>
         </div>
-    </main>
 
     <!-- Create/Edit Job Modal -->
     <div class="modal" id="jobModal">

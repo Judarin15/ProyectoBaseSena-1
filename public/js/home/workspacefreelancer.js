@@ -436,22 +436,26 @@ function renderProposalsTab() {
 
 // Notifications
 function initNotifications() {
-    const notificationBtn = document.getElementById('notificationBtn');
+    const notificationBtn = document.getElementById('notificationBtn') || document.getElementById('notifBtn');
     const notificationsDropdown = document.getElementById('notificationsDropdown');
-    
-    notificationBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isVisible = notificationsDropdown.style.display === 'block';
-        notificationsDropdown.style.display = isVisible ? 'none' : 'block';
-        if (!isVisible) renderNotifications();
-    });
-    
-    document.addEventListener('click', (e) => {
-        if (!notificationsDropdown.contains(e.target) && e.target !== notificationBtn) {
-            notificationsDropdown.style.display = 'none';
-        }
-    });
-    
+
+    if (notificationBtn && notificationsDropdown) {
+        notificationBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = notificationsDropdown.style.display === 'block';
+            notificationsDropdown.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) renderNotifications();
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            if (!notificationBtn.contains(target) && !notificationsDropdown.contains(target)) {
+                notificationsDropdown.style.display = 'none';
+            }
+        });
+    }
+
     updateNotificationBadge();
 }
 
@@ -495,9 +499,9 @@ function markNotificationRead(id) {
 }
 
 function updateNotificationBadge() {
-    const badge = document.getElementById('notificationBadge');
+    const badge = document.getElementById('notificationBadge') || document.getElementById('notifBadge');
+    if (!badge) return;
     const unreadCount = appState.notifications.filter(n => !n.read).length;
-    
     if (unreadCount > 0) {
         badge.textContent = unreadCount;
         badge.style.display = 'flex';
@@ -1250,12 +1254,14 @@ function init() {
     initChatModal();
     initCompleteJobModal();
     initMeetingModal();
-    // Render initial content
-    renderExploreJobs();
-    renderProposalsTab();
-    renderMyJobs();
-    renderHistory();
-    renderMessages();
+    // Activate the current tab (renders content safely)
+    try {
+        switchTab(appState.currentTab || 'explore');
+    } catch (err) {
+        // fallback: render explore
+        console.error('Error switching tab on init:', err);
+        renderExploreJobs();
+    }
 }
 
 // Start app when DOM is ready

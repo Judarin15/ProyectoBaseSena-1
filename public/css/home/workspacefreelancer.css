@@ -44,9 +44,25 @@ body {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--purple-100);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: var(--header-height, 64px);
     z-index: 1000;
+}
+
+/* Ensure the shared sidebar overlays the header (matches inicio behavior) */
+.sidebar {
+    z-index: 2000 !important;
+    /* use the same font as inicio */
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Prevent header from overlapping content when fixed/sticky */
+.main-content {
+    padding-top: calc(var(--header-height, 64px) + 1rem);
+    margin-left: var(--sidebar-width);
 }
 
 .header-container {

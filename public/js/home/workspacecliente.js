@@ -288,53 +288,87 @@ function switchTab(tab) {
     appState.currentTab = tab;
     
     // Update active nav buttons
-    document.querySelectorAll('.nav-btn, .nav-btn-mobile').forEach(btn => {
-        if (btn.getAttribute('data-tab') === tab) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-    
-    // Show/hide tab content
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.remove('active');
-    });
-    
-    const tabMap = {
-        'my-jobs': 'myJobsTab',
-        'proposals': 'proposalsTab',
-        'freelancers': 'freelancersTab',
-        'messages': 'messagesTab'
-    };
-    
-    document.getElementById(tabMap[tab]).classList.add('active');
-    
-    // Render content
-    if (tab === 'my-jobs') renderMyJobs();
-    if (tab === 'proposals') renderProposals();
-    if (tab === 'freelancers') renderFreelancers();
-    if (tab === 'messages') renderMessages();
+    try {
+        document.querySelectorAll('.nav-btn, .nav-btn-mobile').forEach(btn => {
+            if (btn.getAttribute('data-tab') === tab) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Show/hide tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        const tabMap = {
+            'my-jobs': 'myJobsTab',
+            'proposals': 'proposalsTab',
+            'freelancers': 'freelancersTab',
+            'messages': 'messagesTab'
+        };
+
+        const targetId = tabMap[tab] || tabMap['my-jobs'];
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) targetEl.classList.add('active');
+
+        // Render content
+        if (tab === 'my-jobs' || !tab) renderMyJobs();
+        if (tab === 'proposals') renderProposals();
+        if (tab === 'freelancers') renderFreelancers();
+        if (tab === 'messages') renderMessages();
+    } catch (err) {
+        // Si algo falla, aseguramos que al menos se renderice 'Mis Trabajos'
+        console.error('switchTab error:', err);
+        try { document.getElementById('myJobsTab')?.classList.add('active'); } catch (e) {}
+        try { renderMyJobs(); } catch (e) {}
+    }
 }
 
 // Notifications
 function initNotifications() {
-    const notificationBtn = document.getElementById('notificationBtn');
-    const notificationsDropdown = document.getElementById('notificationsDropdown');
-    
-    notificationBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isVisible = notificationsDropdown.style.display === 'block';
-        notificationsDropdown.style.display = isVisible ? 'none' : 'block';
-        if (!isVisible) renderNotifications();
-    });
-    
-    document.addEventListener('click', (e) => {
-        if (!notificationsDropdown.contains(e.target) && e.target !== notificationBtn) {
-            notificationsDropdown.style.display = 'none';
-        }
-    });
-    
+    // Compatibilidad: algunos templates usan 'notifBtn' y 'notifBadge'
+    let notificationBtn = document.getElementById('notificationBtn');
+    if (!notificationBtn) notificationBtn = document.getElementById('notifBtn');
+
+    // Si no existe el contenedor del dropdown, lo creamos para evitar errores y permitir renderizar notificaciones
+    let notificationsDropdown = document.getElementById('notificationsDropdown');
+    if (!notificationsDropdown) {
+        notificationsDropdown = document.createElement('div');
+        notificationsDropdown.id = 'notificationsDropdown';
+        notificationsDropdown.className = 'notifications-dropdown';
+        const content = document.createElement('div');
+        content.id = 'notificationsContent';
+        notificationsDropdown.appendChild(content);
+        notificationsDropdown.style.display = 'none';
+        notificationsDropdown.style.position = 'absolute';
+        notificationsDropdown.style.top = '64px';
+        notificationsDropdown.style.right = '1rem';
+        document.body.appendChild(notificationsDropdown);
+    }
+
+    if (notificationBtn) {
+        notificationBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = notificationsDropdown.style.display === 'block';
+            notificationsDropdown.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) renderNotifications();
+            // intentar posicionar el dropdown cerca del botón
+            try {
+                const rect = notificationBtn.getBoundingClientRect();
+                notificationsDropdown.style.top = (rect.bottom + 8) + 'px';
+                notificationsDropdown.style.left = (rect.left - notificationsDropdown.offsetWidth + rect.width) + 'px';
+            } catch (e) {}
+        });
+
+        document.addEventListener('click', (e) => {
+            if (notificationsDropdown && !notificationsDropdown.contains(e.target) && e.target !== notificationBtn) {
+                notificationsDropdown.style.display = 'none';
+            }
+        });
+    }
+
     updateNotificationBadge();
 }
 
@@ -379,14 +413,16 @@ function markNotificationRead(id) {
 }
 
 function updateNotificationBadge() {
-    const badge = document.getElementById('notificationBadge');
+    const badge = document.getElementById('notificationBadge') || document.getElementById('notifBadge');
     const unreadCount = appState.notifications.filter(n => !n.read).length;
     
     if (unreadCount > 0) {
-        badge.textContent = unreadCount;
-        badge.style.display = 'flex';
+        if (badge) {
+            badge.textContent = unreadCount;
+            badge.style.display = 'flex';
+        }
     } else {
-        badge.style.display = 'none';
+        if (badge) badge.style.display = 'none';
     }
 }
 
@@ -1383,10 +1419,15 @@ function init() {
     initChatModal();
     
     // Render initial content
-    renderMyJobs();
-    renderProposals();
-    renderFreelancers();
-    renderMessages();
+    // Asegurar que la pestaña inicial esté activa y su contenido renderizado
+    if (typeof switchTab === 'function') {
+        switchTab(appState.currentTab || 'my-jobs');
+    } else {
+        renderMyJobs();
+        renderProposals();
+        renderFreelancers();
+        renderMessages();
+    }
 }
 
 // Make functions available globally

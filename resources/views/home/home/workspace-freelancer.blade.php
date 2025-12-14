@@ -9,124 +9,12 @@
 @endpush
 
 @push('scripts')
+<script src="{{ asset('js/home/inicio.js') }}"></script>
 <script src="{{ asset('js/home/workspacefreelancer.js') }}"></script>
 @endpush
 
 @section('content')
-
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <div class="header-content">
-
-                <div class="logo">
-                    <span class="logo-text">Workspace Freelancer</span>
-                </div>
-                
-
-                <!-- Navigation Desktop -->
-                <nav class="nav-desktop">
-                    <button class="nav-btn active" data-tab="explore">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        Explorar Trabajos
-                    </button>
-                    <button class="nav-btn" data-tab="proposals">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="8.5" cy="7" r="4"></circle>
-                            <polyline points="17 11 19 13 23 9"></polyline>
-                        </svg>
-                        Solicitudes
-                    </button>
-                    <button class="nav-btn" data-tab="my-jobs">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                        Mis Trabajos
-                    </button>
-                    <button class="nav-btn" data-tab="history">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        Historial
-                    </button>
-                    <button class="nav-btn" data-tab="messages">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        Mensajes
-                    </button>
-                </nav>
-
-                <!-- Right Side -->
-                <div class="header-right">
-                    <button class="notification-btn" id="notificationBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                        </svg>
-                        <span class="notification-badge" id="notificationBadge">2</span>
-                    </button>
-                    <div class="profile-avatar">JD</div>
-                </div>
-            </div>
-
-            <!-- Navigation Mobile -->
-            <nav class="nav-mobile">
-                <button class="nav-btn-mobile active" data-tab="explore">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    Explorar
-                </button>
-                <button class="nav-btn-mobile" data-tab="proposals">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="8.5" cy="7" r="4"></circle>
-                        <polyline points="17 11 19 13 23 9"></polyline>
-                    </svg>
-                    Solicitudes
-                </button>
-                <button class="nav-btn-mobile" data-tab="my-jobs">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                    </svg>
-                    Trabajos
-                </button>
-                <button class="nav-btn-mobile" data-tab="history">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    Historial
-                </button>
-                <button class="nav-btn-mobile" data-tab="messages">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                    Mensajes
-                </button>
-            </nav>
-        </div>
-
-        <!-- Notifications Dropdown -->
-        <div class="notifications-dropdown" id="notificationsDropdown" style="display: none;">
-            <div class="notifications-header">
-                <h3>Notificaciones</h3>
-            </div>
-            <div class="notifications-content" id="notificationsContent">
-                <!-- Notifications will be rendered here -->
-            </div>
-        </div>
-    </header>
+<!-- header and sidebar are provided by the shared layout (resources/views/home/layouts/app.blade.php) -->
 
     <!-- Main Content -->
     <main class="main-content">
