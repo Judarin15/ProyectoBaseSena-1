@@ -1,3 +1,70 @@
+// ==================== SISTEMA DE PERMISOS ====================
+// INSTRUCCIONES: Coloca esto al inicio de tu script.js
+// Cambia isOwner a false para simular vista de visitante
+
+const isOwner = true; // true = dueño del perfil | false = visitante
+
+// Función para inicializar permisos visuales
+function initializePermissions() {
+    if (!isOwner) {
+        // Ocultar botones de edición
+        const editButtons = [
+            'edit-profile-btn',
+            'edit-skills-btn', 
+            'manage-portfolio-btn',
+            'manage-experience-btn',
+            'avatar-upload-btn',
+            'cover-upload-btn'
+        ];
+        
+        editButtons.forEach(btnId => {
+            const btn = document.getElementById(btnId);
+            if (btn) btn.style.display = 'none';
+        });
+        
+        // Cambiar "Editar Perfil" por botón prominente de mensaje
+        const profileActions = document.querySelector('.profile-actions');
+        if (profileActions) {
+            profileActions.innerHTML = `
+                <button class="btn-primary" onclick="showNotification('Función en desarrollo')">
+                    💬 Enviar Mensaje
+                </button>
+                <button class="btn-primary" onclick="showNotification('Función en desarrollo')" 
+                        style="background-color: #fff; color: var(--primary-color); border: 2px solid var(--primary-color);">
+                    ➕ Seguir
+                </button>
+            `;
+        }
+        
+        console.log('👁️ Vista de visitante - Sin permisos de edición');
+    } else {
+        console.log('✏️ Vista de propietario - Permisos completos');
+    }
+}
+
+// Validación de permisos para todas las operaciones CRUD
+function checkPermission(action) {
+    if (!isOwner) {
+        showNotification('No tienes permisos para ' + action, 'error');
+        return false;
+    }
+    return true;
+}
+
+// IMPORTANTE: Agregar esta validación al inicio de TODAS las funciones CRUD
+// Ejemplo de uso:
+/*
+function createSkill(name) {
+    if (!checkPermission('agregar habilidades')) return null;
+    // ... resto del código
+}
+
+function deletePortfolio(id) {
+    if (!checkPermission('eliminar proyectos')) return false;
+    // ... resto del código
+}
+*/
+
 // ==================== DATOS INICIALES (SIMULACIÓN DE BASE DE DATOS) ====================
 
 // Estadísticas del perfil
@@ -1279,6 +1346,10 @@ renderSkills();
 renderPortfolio();
 renderExperience();
 updateRatingDisplay();
+
+
+// Agregar:
+initializePermissions(); // <-- NUEVA LÍNEA
 
 console.log('🎨 Freeland Profile - Sistema CRUD completo cargado');
 console.log('✨ Tema:', isDarkMode ? 'Oscuro' : 'Claro');
