@@ -4,10 +4,43 @@
 @section('menu-ajustes', 'active')
 
 @push('styles')
+<!-- Critical CSS: render header/logo/container correctly before external CSS loads to prevent FOUC -->
+<style id="critical-ajustes">
+    /* Basic page variables */
+    html,body{height:100%;}
+    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;margin:0;background:#f5f5f5;color:#1a1a2e;line-height:1.5}
+
+    /* Sidebar (basic layout) */
+    .sidebar{position:fixed;left:0;top:0;width:220px;height:100vh;background:#fff;border-right:1px solid #e5e7eb;padding:1.5rem 1rem;z-index:100;overflow:auto}
+    .content-wrapper{margin-left:220px}
+
+    /* Header (basic) */
+    .header{position:fixed;top:0;left:220px;right:0;height:64px;background:#fff;border-bottom:1px solid #e5e7eb;z-index:90}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;height:100%;padding:0 1.5rem}
+
+    /* Ensure main content sits below header */
+    .main-content{padding-top:calc(64px + 1rem)}
+
+    /* Logo / header icon (match Eventos & Retos) */
+    .header .logo{display:flex;align-items:center;gap:.5rem;margin-left:1rem}
+    .header .logo-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:.5rem;background:linear-gradient(to bottom right,#9333ea,#7c3aed);color:#fff}
+    .header .logo-icon svg{width:20px;height:20px;display:block}
+    .header .logo-text{font-size:1.25rem;font-weight:600;background:linear-gradient(to right,#9333ea,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+    /* Prevent oversized inline SVGs before full CSS loads */
+    .icon{width:1.25rem;height:1.25rem;display:inline-block;vertical-align:middle}
+    .icon-container{width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+    .icon svg{width:100%;height:100%}
+
+    /* Minimal settings card look so content isn't raw text-only */
+    .settings-card{background:#fff;border-radius:.75rem;border:1px solid #e5e7eb;padding:1.5rem;margin-bottom:1.5rem}
+</style>
+<link href="{{ asset('css/home/inicio.css') }}" rel="stylesheet">
 <link href="{{ asset('css/home/ajustes.css') }}" rel="stylesheet">
 @endpush
 
 @push('scripts')
+<script src="{{ asset('js/home/inicio.js') }}"></script>
 <script src="{{ asset('js/home/ajustes.js') }}"></script>
 @endpush
 
@@ -17,17 +50,17 @@
 
         <!-- Account Section -->
                     <div class="header-title">
-                <div class="icon-container purple-bg">
-                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h1>Ajustes</h1>
-                    <p class="subtitle">Administra tu cuenta, preferencias y configuración de privacidad</p>
-                </div>
-            </div>
+                        <div class="icon-container purple-bg" style="width:40px;height:40px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                            <svg class="icon" width="20" height="20" style="width:20px;height:20px;display:block;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1>Ajustes</h1>
+                            <p class="subtitle">Administra tu cuenta, preferencias y configuración de privacidad</p>
+                        </div>
+                    </div>
 
         <section class="settings-card">
             <h2>Cuenta</h2>

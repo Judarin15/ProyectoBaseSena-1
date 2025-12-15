@@ -4,10 +4,12 @@
 @section('menu-eventos', 'active')
 
 @push('styles')
+<link href="{{ asset('css/home/inicio.css') }}" rel="stylesheet">
 <link href="{{ asset('css/home/eventosyretos.css') }}" rel="stylesheet">
 @endpush
 
 @push('scripts')
+<script src="{{ asset('js/home/inicio.js') }}"></script>
 <script src="{{ asset('js/home/eventosyretos.js') }}"></script>
 @endpush
 

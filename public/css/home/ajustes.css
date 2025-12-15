@@ -17,7 +17,50 @@ body {
     
     max-width: 896px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    /* Evitar que el header solape el contenido: dejar espacio superior igual a la altura del header */
+    padding: calc(var(--header-height, 64px) + 2rem) 1rem 2rem 1rem;
+}
+
+/* Forzar tamaño y apariencia del logo en el header cuando estamos en Ajustes */
+.header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Igualar exactamente a estilos de Eventos & Retos */
+.header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.header .logo-icon {
+    width: 40px !important;
+    height: 40px !important;
+    background: linear-gradient(to bottom right, var(--purple-600, #9333ea), var(--violet-600, #7c3aed)) !important;
+    border-radius: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    flex-shrink: 0 !important;
+}
+
+.header .logo-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+    color: white !important;
+}
+
+.header .logo-text {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    background: linear-gradient(to right, var(--purple-600, #9333ea), var(--violet-600, #7c3aed)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
 /* Header */

@@ -23,6 +23,37 @@
             </div>
         @endif
 
+        {{-- Título para Eventos & Retos --}}
+        @hasSection('menu-eventos')
+            <div class="logo">
+                <div class="logo-icon" aria-hidden="true" style="width:40px;height:40px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                    <svg width="20" height="20" style="width:20px;height:20px;display:block;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/>
+                        <path d="m18 15 4-4"/>
+                        <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/>
+                    </svg>
+                </div>
+                <a href="{{ route('eventos.y.retos') }}" class="logo-text">Eventos & Retos</a>
+            </div>
+        @endif
+
+        {{-- Título para Ajustes --}}
+        @hasSection('menu-ajustes')
+            <div class="logo">
+                <div class="logo-icon" aria-hidden="true" style="width:40px;height:40px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                    <svg width="20" height="20" style="width:20px;height:20px;display:block;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09c0-.58-.37-1.11-.94-1.34a1.65 1.65 0 0 0-1.82.33l-.06.06A2 2 0 1 1 2.27 18.9l.06-.06c.43-.43.53-1.06.26-1.58A1.65 1.65 0 0 0 2.2 15H2a2 2 0 1 1 0-4h.2c.58 0 1.11-.37 1.34-.94a1.65 1.65 0 0 0-.33-1.82L3.4 7.27A2 2 0 1 1 6.23 4.44l.06.06c.43.43 1.06.53 1.58.26.47-.24 1.02-.24 1.49 0 .52.27.68.9.31 1.37l-.06.06c-.43.43-.53 1.06-.26 1.58.24.47.24 1.02 0 1.49-.27.52-.9.68-1.37.31l-.06-.06A1.65 1.65 0 0 0 9 10.8V11a2 2 0 1 1 4 0v-.2c.58 0 1.11.37 1.34.94.24.52.1 1.15-.33 1.58l-.06.06c-.43.43-.53 1.06-.26 1.58.24.47.24 1.02 0 1.49-.27.52-.9.68-1.37.31l-.06-.06c-.43-.43-1.06-.53-1.58-.26-.47.24-1.02.24-1.49 0-.52-.27-.68-.9-.31-1.37l.06-.06c.43-.43.53-1.06.26-1.58-.24-.47-.24-1.02 0-1.49.27-.52.9-.68 1.37-.31l.06.06c.43.43 1.06.53 1.58.26.47-.24 1.02-.24 1.49 0 .52.27.68.9.31 1.37l-.06.06c-.43.43-.53 1.06-.26 1.58.24.47.24 1.02 0 1.49.27.52.9.68 1.37.31l.06-.06c.43-.43 1.06-.53 1.58-.26.47.24 1.02.24 1.49 0z"></path>
+                    </svg>
+                </div>
+                @if(Route::has('ajustes'))
+                    <a href="{{ route('ajustes') }}" class="logo-text">Ajustes</a>
+                @else
+                    <span class="logo-text">Ajustes</span>
+                @endif
+            </div>
+        @endif
+
         {{-- Buscador (siempre visible, justo después del nombre) --}}
         <form action="{{ route('inicio') }}" method="GET" class="search-form">
             <div class="search-group">
